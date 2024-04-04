@@ -14,7 +14,7 @@
 | 6   | [Сымоник Иван Александрович](https://github.com/DOXECEES)| [PO-11-220220](./trunk/po0_220220/) | ✅ |✅ | | | | |10|4|
 | 7   | [Турабов Андрей Валижонович](https://github.com/Andrey-Turabov)| | | | | | | |10|0|
 | 8   | [Филиппович Милана Сергеевна](https://github.com/miilanafil)| | | | | | | |8|0|
-| 9   | [Хведорец Виктор Сергеевич](https://github.com/ViktorKhvedorets)| | | | | | | |9|0|
+| 9   | [Хведорец Виктор Сергеевич](https://github.com/ViktorKhvedorets)|[PO-11-220224](./trunk/po0_220224/) |✅ | | | | | |9|0|
 | 10  | [Хлебус Игнат Витальевич](https://github.com/ignat121235)| | | | | | | | | |
 | 11  | [Юрашевич Виктор Сергеевич](https://github.com/VictorYrman)| | | | | | | |10|0|
 | 12  | [Янущик Дмитрий Дмитриевич](https://github.com/DimaYanuschik)| | | | | | | |9|0|
