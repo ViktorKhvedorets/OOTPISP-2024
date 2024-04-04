@@ -5,12 +5,13 @@
 
 int main()
 {
-    auto first = std::make_unique<receipt>(52, 33, 111.50);
+    receipt* first = new receipt(52, 33, 111.50);
     receipt second;
-    auto third = std::make_shared<receipt>(*first);
+    receipt* third = new receipt(*first);
 
-    auto ptr = third;
-    ptr->Print();
+    receipt** tramp = new receipt*;
+    *tramp = third;
+    (**tramp).Print();
 
     second.SetDate(3123);
     second.SetAmount(230.75);
@@ -32,7 +33,7 @@ int main()
         (firstTeam[i].*pf)();
     }
 
-    auto secondTeam = std::make_unique<receipt[]>(3);
+    receipt* secondTeam = new receipt[3];
     secondTeam[0].Set(444, 20601, 450.00);
     secondTeam[1].Set(555, 202, 550.00);
     secondTeam[2].Set(666, 12420603, 650.00);
@@ -44,6 +45,11 @@ int main()
 
     receipt fourth = secondTeam[1];
     fourth.Print();
+
+    delete first;
+    delete third;
+    delete tramp;
+    delete[] secondTeam;
 
     return 0;
 }
