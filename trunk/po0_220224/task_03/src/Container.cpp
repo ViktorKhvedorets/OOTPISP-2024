@@ -10,7 +10,7 @@ void Container::ShowAll() const
     }
 }
 
-void Container::Add(Animal* animal)
+void Container::Add(Animal *animal)
 {
     auto temp = std::make_unique<Node>(animal);
     if (head)

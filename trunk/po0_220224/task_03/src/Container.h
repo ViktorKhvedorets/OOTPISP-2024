@@ -18,19 +18,19 @@ public:
     Container() = default;
 
     void ShowAll() const;
-    void Add(Animal* _animal);
+    void Add(Animal *_animal);
     int size() const;
 
-    Animal* operator[](const int index);
+    Animal *operator[](const int index);
 
     struct Node
     {
-        explicit Node(Animal* _date)
+        explicit Node(Animal *_date)
             : date(_date)
         {
         }
 
-        Animal* date;
+        Animal *date;
         std::unique_ptr<Node> next = nullptr;
     };
 
