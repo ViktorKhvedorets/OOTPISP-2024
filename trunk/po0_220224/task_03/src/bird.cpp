@@ -1,4 +1,4 @@
-#include "Bird.h"
+#include "bird.h"
 
 Bird::Bird(Squads ordersofbirds)
     : Animal("Bird"), squads(ordersofbirds)
