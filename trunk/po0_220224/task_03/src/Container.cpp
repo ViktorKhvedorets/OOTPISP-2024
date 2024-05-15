@@ -2,7 +2,7 @@
 
 void Container::ShowAll() const
 {
-    const Node* current = head.get();
+    const Node *current = head.get();
     while (current != nullptr)
     {
         current->date->Print();
@@ -31,7 +31,7 @@ int Container::size() const
     return _size;
 }
 
-Animal* Container::operator[](const int index)
+Animal *Container::operator[](const int index)
 {
     try
     {
