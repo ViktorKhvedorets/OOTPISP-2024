@@ -7,9 +7,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 
 set(SOURCE_FILES  main.cpp
-animal.cpp fish.cpp bird.cpp mammal.cpp reptile.cpp)
+animal.cpp fish.cpp bird.cpp mammal.cpp reptile.cpp Container.cpp)
 
-set(HEADER_FILES animal.h fish.h bird.h mammal.h reptile.h)
+set(HEADER_FILES animal.h fish.h bird.h mammal.h reptile.h Container.h)
 
 set(ALL_SOURCES ${HEADER_FILES}
                 ${SOURCE_FILES})
