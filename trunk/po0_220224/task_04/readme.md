@@ -7,7 +7,7 @@
  
 
 ## Цель работы ##
-Создание консольного приложения, состоящего из нескольких файлов в системе  программирования Visual Studio. Реализация шаблона класса-контейнера. 
+Создание консольного приложения, состоящего  файлов в системе  программирования Visual Studio. Реализация шаблона класса-контейнера. 
 
 ### Перегрузка операций ввода/вывода в классе Set ###
 ```c++
@@ -35,16 +35,16 @@ std::istream& operator>>(std::istream& in, Set<T>& a)
 ```c++
 friend std::ostream& operator<<(std::ostream& out, const Money& a)
 	{
-		out << a.GetRubles() << " Rubles, " << a.GetPenny() << " pennies" << std::endl;
+		out << a.GetRubles() << " Rub, " << a.GetPenny() << " Kopeks" << std::endl;
 		return out;
 	}
 
 	friend std::istream& operator>>(std::istream& in, Money& a)
 	{
-		std::cout << "Enter amount of rubles" << std::endl;
-		in >> a.rubles;
-		std::cout << "Enter amount of pennies" << std::endl;
-		in >> a.penny;
+		std::cout << "Enter the amount of rubles" << std::endl;
+		in >> a.rub;
+		std::cout << "Enter the amount of kopecks" << std::endl;
+		in >> a.pennys;
 		return in;
 	}
 ```
