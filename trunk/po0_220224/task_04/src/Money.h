@@ -15,15 +15,15 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& out, const Money& a)
 	{
-		out << a.GetRubles() << " Рубли, " << a.GetPenny() << " копейки" << std::endl;
+		out << a.GetRubles() << " Rub, " << a.GetPenny() << " Kopeks" << std::endl;
 		return out;
 	}
 
 	friend std::istream& operator>>(std::istream& in, Money& a)
 	{
-		std::cout << "Введите сумму рублей" << std::endl;
+		std::cout << "Enter the amount of rubles" << std::endl;
 		in >> a.rub;
-		std::cout << "Введите сумму копеек" << std::endl;
+		std::cout << "Enter the amount of kopecks" << std::endl;
 		in >> a.pennys;
 		return in;
 	}

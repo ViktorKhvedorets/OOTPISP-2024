@@ -4,8 +4,7 @@ project(LAB_04_220224)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-set(SOURCE_FILES main.cpp
-Money.cpp)
+set(SOURCE_FILES main.cpp Money.cpp)
 
 set(HEADER_FILES Money.h Set.h)
 
