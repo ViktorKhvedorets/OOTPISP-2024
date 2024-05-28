@@ -15,26 +15,26 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& out, const Money& a)
 	{
-		out << a.GetRubles() << " Rubles, " << a.GetPenny() << " pennies" << std::endl;
+		out << a.GetRubles() << " Рубли, " << a.GetPenny() << " копейки" << std::endl;
 		return out;
 	}
 
 	friend std::istream& operator>>(std::istream& in, Money& a)
 	{
-		std::cout << "Enter amount of rubles" << std::endl;
-		in >> a.rubles;
-		std::cout << "Enter amount of pennies" << std::endl;
-		in >> a.penny;
+		std::cout << "Введите сумму рублей" << std::endl;
+		in >> a.rub;
+		std::cout << "Введите сумму копеек" << std::endl;
+		in >> a.pennys;
 		return in;
 	}
 
-	inline int32_t GetPenny() const { return penny; };
-	inline int64_t GetRubles() const { return rubles; };
+	inline int32_t GetPenny() const { return pennys; };
+	inline int64_t GetRubles() const { return rub; };
 
-	inline void SetPenny(const int32_t p) { penny = p; };
-	inline void SetRubles(const int64_t r) { rubles = r; };
+	inline void SetPenny(const int32_t p) { pennys = p; };
+	inline void SetRubles(const int64_t r) { rub = r; };
 
 private:
-	int64_t rubles = 0;
-	int32_t penny = 0;
+	int64_t rub = 0;
+	int32_t pennys = 0;
 };
