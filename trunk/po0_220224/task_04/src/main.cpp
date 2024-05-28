@@ -37,8 +37,7 @@ int main()
     }
 
     
-    int element = 5;
-    if (tmp(element))
+    if (int element = 5; tmp(element))
     {
         std::cout << "Element " << element << " is in the set" << std::endl;
     }
@@ -46,8 +45,6 @@ int main()
     {
         std::cout << "Element " << element << " is not in the set" << std::endl;
     }
-
-
 
     return 0;
 }

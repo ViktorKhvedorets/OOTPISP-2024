@@ -24,7 +24,8 @@ public:
                 elements = std::move(newElements);
                 capacity *= 2;
             }
-            (*elements)[count++] = element;
+            (*elements)[count] = element;
+            count++;
         }
     }
 
