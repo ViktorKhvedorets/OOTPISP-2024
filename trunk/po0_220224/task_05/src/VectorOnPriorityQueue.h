@@ -5,12 +5,12 @@
 #include <iostream>
 
 template<class T>
-class Vector
+class MyVector
 {
 public:
-	Vector() = default;
-	explicit Vector(int n);
-	~Vector() = default;
+	MyVector() = default;
+	explicit MyVector(int n);
+	~MyVector() = default;
 	void Print() const;
 	void Add(const T& a);
 	void putMinToEnd();
@@ -24,7 +24,7 @@ private:
 #endif 
 
 template<class T>
-inline Vector<T>::Vector(int n)
+inline MyVector<T>::MyVector(int n)
 {
 	T a;
 	for (int i = 0; i < n; i++)
@@ -36,7 +36,7 @@ inline Vector<T>::Vector(int n)
 }
 
 template<class T>
-inline void Vector<T>::Print() const
+inline void MyVector<T>::Print() const
 {
 	for (int i = 0; i < _vec.size(); i++)
 	{
@@ -45,14 +45,14 @@ inline void Vector<T>::Print() const
 }
 
 template<class T>
-inline void Vector<T>::Add(const T& a)
+inline void MyVector<T>::Add(const T& a)
 {
 	_vec.push_back(a);
 	len++;
 }
 
 template<class T>
-inline void Vector<T>::putMinToEnd()
+inline void MyVector<T>::putMinToEnd()
 {
 	int index = 0;
 	T tmp = _vec[0];
@@ -71,7 +71,7 @@ inline void Vector<T>::putMinToEnd()
 }
 
 template<class T>
-inline void Vector<T>::findByKeyAndDelete(T key)
+inline void MyVector<T>::findByKeyAndDelete(T key)
 {
 	int index = 0;
 	for (int i = 0; i < _vec.size(); i++)
@@ -87,7 +87,7 @@ inline void Vector<T>::findByKeyAndDelete(T key)
 }
 
 template<class T>
-inline void Vector<T>::addAllMinMaxSum()
+inline void MyVector<T>::addAllMinMaxSum()
 {
 	int index = 0;
 	T min = _vec[0];
