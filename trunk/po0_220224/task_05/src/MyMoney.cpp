@@ -36,7 +36,14 @@ Money operator-(const Money& a, const Money& b)
     diff->SetR(RDiff);
     return *diff.get();
 }
-
+Money operator/(const Money& a, int b)
+{
+    double totalKopecks = static_cast<double>(a.rubles) * 100.0 + static_cast<double>(a.kopeck);
+    totalKopecks /= b;
+    auto newRubles = static_cast<double>(totalKopecks / 100.0);
+    auto newKopecks = static_cast<int>(std::fmod(totalKopecks, 100.0));
+    return Money(newRubles + newKopecks / 100.0);
+}
 
 
 // Оператор сравнения на равенство двух объектов Money
