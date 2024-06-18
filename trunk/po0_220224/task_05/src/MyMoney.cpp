@@ -36,15 +36,6 @@ Money operator-(const Money& a, const Money& b)
     diff->SetR(RDiff);
     return *diff.get();
 }
-// Оператор деления объекта Money на целое число
-Money operator/(const Money& a, int b)
-{
-    double totalKopecks = a.GetR() * 100.0 + a.GetK();
-    totalKopecks /= b;
-    long newRubles = totalKopecks / 100;
-    int newKopecks = totalKopecks % 100;
-    return Money(newRubles, newKopecks);
-}
 
 
 
