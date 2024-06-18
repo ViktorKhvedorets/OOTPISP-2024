@@ -6,7 +6,7 @@
 #include <numeric>
 #include <optional>
 
-#include "MyMoney.h"
+#include "Money.h"
 #include "Vector.h"
 #include "VectorOnPriorityQueue.h"
 
