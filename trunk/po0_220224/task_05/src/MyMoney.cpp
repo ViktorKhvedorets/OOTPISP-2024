@@ -15,7 +15,7 @@ Money::Money(double amount)
 
 
 // Оператор сложения двух объектов Money
-Money Money::operator+(const Money& other) const
+Money operator+(const Money& other) const
 {
     Money sum;
     sum.rubles = rubles + other.rubles;
@@ -26,7 +26,7 @@ Money Money::operator+(const Money& other) const
 
     return sum;
 }
-Money Money::operator-(const Money& a) const
+Money operator-(const Money& a) const
 {
     auto diff = std::make_unique<Money>();
     long RDiff = this->GetR() - a.GetR();
@@ -40,7 +40,7 @@ Money Money::operator-(const Money& a) const
     diff->SetR(RDiff);
     return *diff.get();
 }
-Money Money::operator/(const int a) const
+Money operator/(const int a) const
 {
     double totalKopecks = rubles * 100 + kopeck;
     totalKopecks /= a;
