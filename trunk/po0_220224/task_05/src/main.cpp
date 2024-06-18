@@ -171,16 +171,16 @@ int main()
 
     // TASK 5 //
 
-    QVector<int> qvectorOfInts;
-    qvectorOfInts.append(1);
-    qvectorOfInts.append(1);
-    qvectorOfInts.append(2);
-    qvectorOfInts.append(11);
-    qvectorOfInts.append(11);
+    Vector<int> vectorOfInts;
+    vectorOfInts.append(1);
+    vectorOfInts.append(1);
+    vectorOfInts.append(2);
+    vectorOfInts.append(11);
+    vectorOfInts.append(11);
 
-    qvectorOfInts.addMaxElement();
-    qvectorOfInts.removeElement(1);
-    qvectorOfInts.addAverageToAllElements();
+    vectorOfInts.addMaxElement();
+    vectorOfInts.removeElement(1);
+    vectorOfInts.addAverageToAllElements();
 
-    qvectorOfInts.print();
+    vectorOfInts.print();
 }
