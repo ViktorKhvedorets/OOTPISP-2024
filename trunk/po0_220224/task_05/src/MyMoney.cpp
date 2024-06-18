@@ -40,7 +40,7 @@ Money operator/(const Money& a, int b)
 {
     double totalKopecks = static_cast<double>(a.rubles) * 100.0 + static_cast<double>(a.kopeck);
     totalKopecks /= b;
-    long newRubles = static_cast<long>(totalKopecks / 100.0);
+    auto newRubles = static_cast<double>(totalKopecks / 100.0);
     auto newKopecks = static_cast<int>(std::fmod(totalKopecks, 100.0));
     return Money(newRubles + newKopecks / 100.0);
 }
