@@ -96,7 +96,7 @@ int main()
 
 	std::cout << "Task5" << std::endl;
 
-	MyQVector<Coins> qvec;
+	Vector<Coins> qvec;
 	qvec.Add(Coins(1.50));
 	qvec.Add(Coins(1.20));
 	qvec.Add(Coins(1.30));
