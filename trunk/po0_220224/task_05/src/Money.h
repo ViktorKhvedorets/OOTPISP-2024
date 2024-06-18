@@ -9,7 +9,7 @@ class Money
 {
 public:
     Money() = default;
-    explicit Money(const double a); // Конструктор из double
+    explicit Money(double rubles, double kopecks); // Constructor with rubles and kopecks as doubles
     Money(const Money& other) = default;
     ~Money() = default;
     Money& operator=(const Money& a) = default;
@@ -43,7 +43,6 @@ private:
             kopeck = 100 + kopeck % 100;
         }
     }
-    
 };
 
 #endif

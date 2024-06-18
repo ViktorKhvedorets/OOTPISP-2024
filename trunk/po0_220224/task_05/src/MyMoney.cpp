@@ -3,12 +3,10 @@
 #include <memory>
 #include <iomanip>
 
-// Конструктор, инициализирующий объект Money из вещественного числа
-Money::Money(double amount)
-    : rubles(static_cast<long>(amount)),
-      kopeck(static_cast<int>(std::round((amount - std::floor(amount)) * 100)))
+Money::Money(double rubles, double kopecks)
+    : rubles(static_cast<long>(rubles)),
+      kopeck(static_cast<int>(std::round(kopecks)))
 {
-    // Если количество копеек больше или равно 100, добавляем их к рублям
     normalize();
 }
 
