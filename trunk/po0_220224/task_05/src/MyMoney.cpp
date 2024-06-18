@@ -38,12 +38,13 @@ Money operator-(const Money& a, const Money& b)
 }
 Money operator/(const Money& a, int b)
 {
-    double totalKopecks = a.rubles * 100 + a.kopeck;
+    double totalKopecks = static_cast<double>(a.rubles) * 100.0 + static_cast<double>(a.kopeck);
     totalKopecks /= b;
-    long newRubles = static_cast<long>(totalKopecks / 100);
-    int newKopecks = static_cast<int>(std::fmod(totalKopecks, 100));
+    long newRubles = static_cast<long>(totalKopecks / 100.0);
+    int newKopecks = static_cast<int>(std::fmod(totalKopecks, 100.0));
     return Money(newRubles + newKopecks / 100.0);
 }
+
 
 // Оператор сравнения на равенство двух объектов Money
 bool Money::operator==(const Money& other) const = default;
