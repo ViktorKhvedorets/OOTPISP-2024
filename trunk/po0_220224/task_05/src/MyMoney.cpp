@@ -42,7 +42,7 @@ Money Money::operator-(const Money& a) const
 }
 Money Money::operator/(const int a) const
 {
-    long totalKopecks = rubles * 100 + kopeck;
+    double totalKopecks = rubles * 100 + kopeck;
     totalKopecks /= a;
     double newRubles = totalKopecks / 100;
     int newKopecks = totalKopecks % 100;
@@ -58,6 +58,7 @@ std::ostream& operator<<(std::ostream& out, const Money& a)
 
 {
    std::cout<< "hello world";
+   return out;
 }
 
 std::istream& operator>>(std::istream& in, Money& a)

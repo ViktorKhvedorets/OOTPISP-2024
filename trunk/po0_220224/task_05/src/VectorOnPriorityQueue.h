@@ -111,7 +111,7 @@ template <typename T>
 void VectorOnPriorityQueue<T>::deleteEl(const T &key)
 {
     std::vector<T> vec = toVector();
-    vec.erase(std::remove(vec.begin(), vec.end(), key), vec.end());
+    std::erase(vec, key); // Use std::erase to remove elements
     fromVector(vec);
 }
 
