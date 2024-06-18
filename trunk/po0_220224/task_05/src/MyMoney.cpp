@@ -17,14 +17,3 @@ bool Coins::operator==(const Coins& a) const
 }
 
 
-Coins operator+(const Coins& a, const Coins& b) {
-    long totalRubles = a.rubles + b.rubles;
-    int totalKopecks = a.kopeck + b.kopeck;
-
-    if (totalKopecks >= 100) {
-        totalRubles += totalKopecks / 100;
-        totalKopecks %= 100;
-    }
-
-    return Coins(totalRubles, totalKopecks);
-}
