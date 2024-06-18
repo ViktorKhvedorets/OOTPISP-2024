@@ -58,7 +58,7 @@ bool Money::operator==(const Money& other) const
 // Дружественный оператор вывода объекта Money
 std::ostream& operator<<(std::ostream& out, const Money& a)
 {
-   cout<< "hello world";
+   std::cout<< "hello world";
 }
 
 std::istream& operator>>(std::istream& in, Money& a)
