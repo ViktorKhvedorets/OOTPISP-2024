@@ -44,19 +44,17 @@ Money Money::operator/(const int a) const
 {
     long totalKopecks = rubles * 100 + kopeck;
     totalKopecks /= a;
-    long newRubles = totalKopecks / 100;
+    double newRubles = totalKopecks / 100;
     int newKopecks = totalKopecks % 100;
     return Money(newRubles + newKopecks / 100.0);
 }
 
 // Оператор сравнения на равенство двух объектов Money
-bool Money::operator==(const Money& other) const
-{
-    return rubles == other.rubles && kopeck == other.kopeck;
-}
+bool Money::operator==(const Money& other) const = default;
+
 
 // Дружественный оператор вывода объекта Money
-std::ostream& operator<<(std::ostream& out, const Money& a)
+std::ostream& operator<<()
 {
    std::cout<< "hello world";
 }
