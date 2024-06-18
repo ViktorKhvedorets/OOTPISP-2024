@@ -14,6 +14,7 @@ public:
     Coins& operator=(const Coins& a) = default;
     bool operator==(const Coins& a) const;
     auto operator<=>(const Coins& a) const = default;
+    Coins operator+(const Coins& a) const;
 
     friend std::ostream& operator << (std::ostream& out, const Coins& a)
     {
@@ -35,17 +36,7 @@ public:
     inline void SetK(const int k) { kopeck = k; };
     inline void SetR(const long r) { rubles = r; };
 
-    Coins operator+(const Coins& a) const
-    {
-        long totalRubles = this->rubles + a.rubles;
-        int totalKopecks = this->kopeck + a.kopeck;
-        if (totalKopecks >= 100)
-        {
-            totalRubles++;
-            totalKopecks -= 100;
-        }
-        return Coins(totalRubles, totalKopecks);
-    }
+   
 
 private:
     long rubles = 0;
