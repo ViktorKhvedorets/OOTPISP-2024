@@ -36,14 +36,16 @@ Money operator-(const Money& a, const Money& b)
     diff->SetR(RDiff);
     return *diff.get();
 }
+// Оператор деления объекта Money на целое число
 Money operator/(const Money& a, int b)
 {
-    double totalKopecks = static_cast<double>(a.rubles) * 100.0 + static_cast<double>(a.kopeck);
+    double totalKopecks = a.GetR() * 100.0 + a.GetK();
     totalKopecks /= b;
-    auto newRubles = static_cast<double>(totalKopecks / 100.0);
-    auto newKopecks = static_cast<int>(std::fmod(totalKopecks, 100.0));
-    return Money(newRubles + newKopecks / 100.0);
+    long newRubles = totalKopecks / 100;
+    int newKopecks = totalKopecks % 100;
+    return Money(newRubles, newKopecks);
 }
+
 
 
 // Оператор сравнения на равенство двух объектов Money
