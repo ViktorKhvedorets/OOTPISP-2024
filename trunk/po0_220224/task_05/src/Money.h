@@ -15,9 +15,9 @@ public:
     Money& operator=(const Money& a) = default;
     bool operator==(const Money& a) const;
     auto operator<=>(const Money& a) const = default;
-    Money operator+(const Money& a) const;
-    Money operator-(const Money& a) const; // Оператор вычитания
-    Money operator/(const int a) const; // Оператор деления
+    friend Money operator+(const Money& a, const Money& b);
+    friend Money operator-(const Money& a, const Money& b);
+    friend Money operator/(const Money& a, int b);
     
     friend std::ostream& operator<<(std::ostream& out, const Money& a);
     friend std::istream& operator>>(std::istream& in, Money& a);
