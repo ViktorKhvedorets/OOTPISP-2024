@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(SOURCE_FILES main.cpp
 Money.cpp)
 
-set(HEADER_FILES Money.h Vector.h VectorOnPriorityQueue.h)
+set(HEADER_FILES MyMoney.h Vector.h VectorOnPriorityQueue.h)
 
 set(ALL_SOURCES ${HEADER_FILSE}
 				${SOURCE_FILES})
