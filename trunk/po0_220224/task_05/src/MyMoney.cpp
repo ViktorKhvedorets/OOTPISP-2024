@@ -16,4 +16,4 @@ bool Coins::operator==(const Coins& a) const
 		return false;
 }
 
-
+Coins::Coins(long r, int k) : rubles(r), kopeck(k) {}
