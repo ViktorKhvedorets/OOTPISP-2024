@@ -44,8 +44,8 @@ Money Money::operator/(const int a) const
 {
     double totalKopecks = rubles * 100 + kopeck;
     totalKopecks /= a;
-    double newRubles = totalKopecks / 100;
-    double newKopecks = totalKopecks % 100.0;
+    long newRubles = static_cast<long>(totalKopecks / 100);
+    int newKopecks = static_cast<int>(std::fmod(totalKopecks, 100));
     return Money(newRubles + newKopecks / 100.0);
 }
 
