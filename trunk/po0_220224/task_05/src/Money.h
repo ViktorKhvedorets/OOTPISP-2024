@@ -14,7 +14,22 @@ public:
     Coins& operator=(const Coins& a) = default;
     bool operator==(const Coins& a) const;
     auto operator<=>(const Coins& a) const = default;
-    Coins operator+(const Coins& a) const;
+    friend Coins operator+(const Coins& a) const
+    {
+        auto sum = std::make_unique<Coins>();
+	long RSum = this->GetR() + a.GetR();
+	int KSum = this->GetK() + a.GetK();
+	if (KSum > 100)
+	{
+		RSum++;
+		KSum -= 100;
+	}
+	sum->SetK(KSum);
+	sum->SetR(RSum);
+
+	return *sum.get();
+
+    }
 
     friend std::ostream& operator << (std::ostream& out, const Coins& a)
     {

@@ -17,19 +17,3 @@ bool Coins::operator==(const Coins& a) const
 }
 
 
-Coins Coins::operator+(const Coins& a) const
-{
-	auto sum = std::make_unique<Coins>();
-	long RSum = this->GetR() + a.GetR();
-	int KSum = this->GetK() + a.GetK();
-	if (KSum > 100)
-	{
-		RSum++;
-		KSum -= 100;
-	}
-	sum->SetK(KSum);
-	sum->SetR(RSum);
-
-	return *sum.get();
-
-}
