@@ -1,6 +1,7 @@
 #include "Money.h"
 #include <cmath>
 #include <memory>
+#include <iomanip>
 
 // Конструктор, инициализирующий объект Money из вещественного числа
 Money::Money(double amount)
@@ -39,8 +40,8 @@ Money operator/(const Money& a, int b)
 {
     double totalKopecks = static_cast<double>(a.GetR()) * 100.0 + a.GetK();
     totalKopecks /= b;
-    long newRubles = totalKopecks / 100;
-    int newKopecks = totalKopecks % 100;
+    double newRubles = totalKopecks / 100.0;
+    double newKopecks = std::fmod(totalKopecks, 100.0); // Change newKopecks to double
     return Money(newRubles, newKopecks);
 }
 
@@ -50,7 +51,7 @@ bool Money::operator==(const Money& other) const = default;
 // Дружественный оператор вывода объекта Money
 std::ostream& operator<<(std::ostream& out, const Money& a)
 {
-    out << a.rubles << ',' << std::setw(2) << std::setfill('0') << a.kopeck;
+    out << a.GetR() << ',' << std::setw(2) << std::setfill('0') << a.GetK();
     return out;
 }
 
