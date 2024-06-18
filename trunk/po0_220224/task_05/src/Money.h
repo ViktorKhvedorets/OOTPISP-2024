@@ -16,6 +16,8 @@ public:
     bool operator==(const Money& a) const;
     auto operator<=>(const Money& a) const = default;
     Money operator+(const Money& a) const;
+    Money operator-(const Money& a) const; // Оператор вычитания
+    Money operator/(const int a) const; // Оператор деления
 
     friend std::ostream& operator<<(std::ostream& out, const Money& a);
     friend std::istream& operator>>(std::istream& in, Money& a);
@@ -26,8 +28,8 @@ public:
     inline void SetR(const long r) { rubles = r; }
 
 private:
-	long rubles = 0;
-	int kopeck = 0;
+    long rubles = 0;
+    int kopeck = 0;
 };
 
 #endif
