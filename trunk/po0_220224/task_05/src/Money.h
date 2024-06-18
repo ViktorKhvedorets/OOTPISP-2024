@@ -1,29 +1,29 @@
 #pragma once
-#ifndef MONEYH
-#define MONEYH
+#ifndef COINSH
+#define COINSH
 #include <iostream>
 
 
-class Money
+class Coins
 {
 public:
-	Money() = default;
-	explicit Money(const double a);
-	Money(const Money& other) = default;
-	~Money() = default;
-	Money& operator=(const Money& a) = default;
-	bool operator==(const Money& a) const;
-	auto operator<=>(const Money& a) const = default;
-	Money operator+(const Money& a) const;
+	Coins() = default;
+	explicit Coins(const double a);
+	Coins(const Coins& other) = default;
+	~Coins() = default;
+	Coins& operator=(const Coins& a) = default;
+	bool operator==(const Coins& a) const;
+	auto operator<=>(const Coins& a) const = default;
+	Coins operator+(const Coins& a) const;
 
 
-	friend std::ostream& operator << (std::ostream& out, const Money& a)
+	friend std::ostream& operator << (std::ostream& out, const Coins& a)
 	{
 		out << a.GetR() << ',' << a.GetK() << std::endl;
 		return out;
 	}
 
-	friend std::istream& operator >> (std::istream& in, Money& a)
+	friend std::istream& operator >> (std::istream& in, Coins& a)
 	{
 		std::cout << "Enter amounts of rubles" << std::endl;
 		in >> a.rubles;

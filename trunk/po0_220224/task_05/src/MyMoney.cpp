@@ -1,14 +1,14 @@
 #include "Money.h"
 #include <memory>
 
-Money::Money(const double a)
+Coins::Coins(const double a)
 
 	:rubles(static_cast<long>(a)),
 	kopeck(static_cast<int>((a - static_cast<int>(a)) * 100))
 {
 }
 
-bool Money::operator==(const Money& a) const
+bool Coins::operator==(const Coins& a) const
 {
 	if (kopeck == a.kopeck && rubles == a.rubles)
 		return true;
@@ -17,9 +17,9 @@ bool Money::operator==(const Money& a) const
 }
 
 
-Money Money::operator+(const Money& a) const
+Coins Coins::operator+(const Coins& a) const
 {
-	auto sum = std::make_unique<Money>();
+	auto sum = std::make_unique<Coins>();
 	long RSum = this->GetR() + a.GetR();
 	int KSum = this->GetK() + a.GetK();
 	if (KSum > 100)

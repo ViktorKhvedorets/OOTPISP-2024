@@ -6,12 +6,12 @@
 
 
 template <class T>
-class MyQVector
+class Vector
 {
 public:
-	MyQVector() = default;
-	explicit MyQVector(int n);
-	~MyQVector() = default;
+	Vector() = default;
+	explicit Vector(int n);
+	~Vector() = default;
 	void Print() const;
 	void Add(const T& a);
 	void putMinToEnd();
@@ -25,7 +25,7 @@ private:
 #endif
 
 template<class T>
-inline void MyQVector<T>::Print() const
+inline void Vector<T>::Print() const
 {
 	std::queue <T> tmp_q = _q;
 	for (int i = 0; i < _len;  i++)
@@ -36,14 +36,14 @@ inline void MyQVector<T>::Print() const
 }
 
 template<class T>
-inline void MyQVector<T>::Add(const T& a)
+inline void Vector<T>::Add(const T& a)
 {
 	_q.push(a);
 	_len++;
 }
 
 template<class T>
-inline void MyQVector<T>::putMinToEnd()
+inline void Vector<T>::putMinToEnd()
 {
 	int index = 0;
 	std::queue<T> tmp_q = _q;
@@ -70,7 +70,7 @@ inline void MyQVector<T>::putMinToEnd()
 }
 
 template<class T>
-inline void MyQVector<T>::findByKeyAndDelete(T key)
+inline void Vector<T>::findByKeyAndDelete(T key)
 {
 	int index = 0;
 	std::queue<T> tmp_q = _q;
@@ -97,7 +97,7 @@ inline void MyQVector<T>::findByKeyAndDelete(T key)
 }
 
 template<class T>
-inline void MyQVector<T>::addAllMinMaxSum()
+inline void Vector<T>::addAllMinMaxSum()
 {
 	std::queue<T> tmp_q = _q;
 	T min = tmp_q.front(); tmp_q.pop();
@@ -135,7 +135,7 @@ inline void MyQVector<T>::addAllMinMaxSum()
 
 
 template<class T>
-inline MyQVector<T>::MyQVector(int n)
+inline Vector<T>::Vector(int n)
 {
 	T a;
 	for (int i = 0; i < n; i++)
