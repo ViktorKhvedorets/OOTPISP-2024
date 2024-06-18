@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <numeric>
 
+// Параметризированный класс Vector для хранения элементов типа T
 template <typename T>
 class Vector
 {
@@ -13,24 +14,23 @@ public:
     Vector() = default;
     ~Vector() = default;
 
-    void append(const T &other);
-    int currentSize() const;
+    void append(const T &other); // Добавить элемент в вектор
+    int currentSize() const; // Текущий размер вектора
+    int getCurrentSize() const; // Получить текущий размер вектора (дублирует currentSize)
+    T operator[](const int index) const; // Оператор доступа к элементу по индексу
+    auto operator*(const T value) const; // Оператор умножения всех элементов на значение
+    void print() const; // Печать элементов вектора
 
-    int getCurrentSize() const;
-    T operator[](const int index) const;
-    auto operator*(const T value) const;
-    void print() const;
+    int getMaxSize() const { return maxSize; } // Получить максимальный размер вектора
 
-    int getMaxSize() const { return maxSize; };
-
-    void addMaxElement();
-    void removeElement(const T &key);
-    void addAverageToAllElements();
+    void addMaxElement(); // Добавить максимальный элемент в конец вектора
+    void removeElement(const T &key); // Удалить элемент по значению
+    void addAverageToAllElements(); // Добавить среднее значение ко всем элементам
 
 private:
     std::unique_ptr<std::vector<T>> elements = std::make_unique<std::vector<T>>(2);
-    int maxSize = 2;
-    int currentLength = 0;
+    int maxSize = 2; // Максимальный размер вектора
+    int currentLength = 0; // Текущая длина вектора
 };
 
 template <class T>
@@ -39,10 +39,7 @@ void Vector<T>::append(const T &other)
     if (currentLength >= maxSize)
     {
         auto newElements = std::make_unique<std::vector<T>>(maxSize * 2);
-        for (int i = 0; i < currentLength; ++i)
-        {
-            (*newElements)[i] = (*elements)[i];
-        }
+        std::copy(elements->begin(), elements->begin() + currentLength, newElements->begin());
 
         elements = std::move(newElements);
         maxSize *= 2;

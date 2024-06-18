@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <ranges>
 
+// Параметризированный класс VectorOnPriorityQueue для работы с очередью с приоритетом
 template <typename T>
 class VectorOnPriorityQueue
 {
@@ -13,23 +14,23 @@ public:
     VectorOnPriorityQueue() = default;
     ~VectorOnPriorityQueue() = default;
 
-    T front() const;
-    auto operator*(const T value) const;
-    void show() const;
+    T front() const; // Вернуть первый элемент
+    auto operator*(const T value) const; // Оператор умножения всех элементов на значение
+    void show() const; // Показать элементы
 
-    void application(const T &value);
+    void application(const T &value); // Применить элемент (добавить в очередь)
 
-    void fold(const T &key, int position);
-    void deleteEl(const T &key);
-    void subMinMax();
-    int sizeVec() const;
+    void fold(const T &key, int position); // Вставить элемент по ключу на заданную позицию
+    void deleteEl(const T &key); // Удалить элемент по ключу
+    void subMinMax(); // Вычесть разницу между максимальным и минимальным элементами из всех элементов
+    int sizeVec() const; // Вернуть размер вектора
 
 private:
-    void fromVector(const std::vector<T> &vec);
+    void fromVector(const std::vector<T> &vec); // Инициализировать очередь из вектора
 
-    std::vector<T> toVector() const;
+    std::vector<T> toVector() const; // Преобразовать очередь в вектор
 
-    std::priority_queue<T> objects;
+    std::priority_queue<T> objects; // Очередь с приоритетом для хранения элементов
 };
 
 template <typename T>
@@ -71,7 +72,7 @@ auto VectorOnPriorityQueue<T>::operator*(const T cost) const
 
     for (const auto &elem : toVector())
     {
-        newArr.app(elem * cost);
+        newArr.application(elem * cost);
     }
 
     return newArr;
@@ -94,12 +95,12 @@ template <typename T>
 void VectorOnPriorityQueue<T>::fold(const T &key, int position)
 {
     std::vector<T> ourvec = toVector();
-    auto it = std::ranges::find(ourvec.begin(), ourvec.end(), key);
+    auto it = std::ranges::find(ourvec, key);
 
     if (it == ourvec.end())
         return;
 
-    if (position < 0 || position > ourvec.size())
+    if (position < 0 || position > static_cast<int>(ourvec.size()))
         return;
 
     ourvec.insert(ourvec.begin() + position, *it);
@@ -110,7 +111,7 @@ template <typename T>
 void VectorOnPriorityQueue<T>::deleteEl(const T &key)
 {
     std::vector<T> vec = toVector();
-    std::erase(vec, key);
+    vec.erase(std::remove(vec.begin(), vec.end(), key), vec.end());
     fromVector(vec);
 }
 
