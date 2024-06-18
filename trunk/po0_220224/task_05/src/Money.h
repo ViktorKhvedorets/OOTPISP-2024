@@ -30,6 +30,19 @@ public:
 private:
     long rubles = 0;
     int kopeck = 0;
+    void normalize()
+    {
+        if (kopeck >= 100)
+        {
+            rubles += kopeck / 100;
+            kopeck %= 100;
+        }
+        else if (kopeck < 0)
+        {
+            rubles -= (-kopeck + 99) / 100;
+            kopeck = 100 + kopeck % 100;
+        }
+    }
 };
 
 #endif

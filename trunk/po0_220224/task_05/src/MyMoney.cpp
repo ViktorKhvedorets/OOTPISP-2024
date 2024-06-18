@@ -63,22 +63,19 @@ bool Money::operator==(const Money& other) const
 }
 
 // Дружественный оператор вывода объекта Money
-std::ostream& operator<<(std::ostream& out, const Money& money)
+std::ostream& operator<<(std::ostream& out, const Money& a)
 {
-    out << money.GetR() << ',' << std::setw(2) << std::setfill('0') << money.GetK();
+    out << a.GetR() << ',' << std::setw(2) << std::setfill('0') << a.GetK();
     return out;
 }
 
-// Дружественный оператор ввода объекта Money
-std::istream& operator>>(std::istream& in, Money& money)
+std::istream& operator>>(std::istream& in, Money& a)
 {
-    std::cout << "Введите количество рублей: ";
-    in >> money.rubles;
-    std::cout << "Введите количество копеек: ";
-    in >> money.kopeck;
-
-    // Нормализуем введенные значения
-    money.normalize();
-
+    std::cout << "Enter amount of rubles" << std::endl;
+    in >> a.rubles;
+    std::cout << "Enter amount of kopeck" << std::endl;
+    in >> a.kopeck;
+    a.normalize();
     return in;
 }
+
