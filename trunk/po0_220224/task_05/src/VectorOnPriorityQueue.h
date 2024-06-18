@@ -17,8 +17,8 @@ public:
 	void findByKeyAndDelete(T key);
 	void addAllMinMaxSum();
 private:
-	std::vector <T> _vec;
-	int len = 0;
+	std::vector <T> _vect;
+	int leng = 0;
 };
 
 #endif 
@@ -30,91 +30,91 @@ inline MyVector<T>::MyVector(int n)
 	for (int i = 0; i < n; i++)
 	{
 		std::cin >> a;
-		_vec.push_back(a);
+		_vect.push_back(a);
 	}
-	len = _vec.size();
+	leng = _vect.size();
 }
 
 template<class T>
 inline void MyVector<T>::Print() const
 {
-	for (int i = 0; i < _vec.size(); i++)
+	for (int i = 0; i < _vect.size(); i++)
 	{
-		std::cout << _vec[i] << std::endl;
+		std::cout << _vect[i] << std::endl;
 	}
 }
 
 template<class T>
 inline void MyVector<T>::Add(const T& a)
 {
-	_vec.push_back(a);
-	len++;
+	_vect.push_back(a);
+	leng++;
 }
 
 template<class T>
 inline void MyVector<T>::putMinToEnd()
 {
 	int index = 0;
-	T tmp = _vec[0];
-	for (int i = 1; i < _vec.size(); i++)
+	T tmp = _vect[0];
+	for (int i = 1; i < _vect.size(); i++)
 	{
-		if (_vec[i] < tmp)
+		if (_vect[i] < tmp)
 		{
 			index = i;
-			tmp = _vec[i];
+			tmp = _vect[i];
 		}
 	}
 
-	_vec.erase(_vec.begin() + index);
+	_vect.erase(_vect.begin() + index);
 
-	_vec.push_back(tmp);
+	_vect.push_back(tmp);
 }
 
 template<class T>
 inline void MyVector<T>::findByKeyAndDelete(T key)
 {
 	int index = 0;
-	for (int i = 0; i < _vec.size(); i++)
+	for (int i = 0; i < _vect.size(); i++)
 	{
-		if (_vec[i] == key)
+		if (_vect[i] == key)
 		{
 			index = i;
-			_vec.erase(_vec.begin() + index);
+			_vect.erase(_vect.begin() + index);
 			break;
 		}
 	}
-	len--;
+	leng--;
 }
 
 template<class T>
 inline void MyVector<T>::addAllMinMaxSum()
 {
 	int index = 0;
-	T min = _vec[0];
-	for (int i = 1; i < _vec.size(); i++)
+	T min = _vect[0];
+	for (int i = 1; i < _vect.size(); i++)
 	{
-		if (_vec[i] < min)
+		if (_vect[i] < min)
 		{
 			index = i;
-			min = _vec[i];
+			min = _vect[i];
 		}
 	}
 
 	int index1 = 0;
-	T max = _vec[0];
-	for (int i = 1; i < _vec.size(); i++)
+	T max = _vect[0];
+	for (int i = 1; i < _vect.size(); i++)
 	{
-		if (_vec[i] > max)
+		if (_vect[i] > max)
 		{
 			index1 = i;
-			max = _vec[i];
+			max = _vect[i];
 		}
 	}
 
 	T sum = min + max;
 
-	for (int i = 0; i < _vec.size(); i++)
+	for (int i = 0; i < _vect.size(); i++)
 	{
-		_vec[i] = _vec[i] + sum;
+		_vect[i] = _vect[i] + sum;
 	}
 }
