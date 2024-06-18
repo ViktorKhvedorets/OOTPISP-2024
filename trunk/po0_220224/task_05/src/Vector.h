@@ -1,127 +1,147 @@
 #pragma once
-
+#ifndef VECTOR
+#define VECTOR
+#include <queue>
 #include <iostream>
-#include <memory>
-#include <vector>
-#include <algorithm>
-#include <numeric>
 
-// Параметризированный класс Vector для хранения элементов типа T
-template <typename T>
-class Vector
+
+template <class T>
+class MyQVector
 {
 public:
-    Vector() = default;
-    ~Vector() = default;
-
-    void append(const T &other); // Добавить элемент в вектор
-    int currentSize() const; // Текущий размер вектора
-    int getCurrentSize() const; // Получить текущий размер вектора (дублирует currentSize)
-    T operator[](const int index) const; // Оператор доступа к элементу по индексу
-    auto operator*(const T value) const; // Оператор умножения всех элементов на значение
-    void print() const; // Печать элементов вектора
-
-    int getMaxSize() const { return maxSize; } // Получить максимальный размер вектора
-
-    void addMaxElement(); // Добавить максимальный элемент в конец вектора
-    void removeElement(const T &key); // Удалить элемент по значению
-    void addAverageToAllElements(); // Добавить среднее значение ко всем элементам
-
+	MyQVector() = default;
+	explicit MyQVector(int n);
+	~MyQVector() = default;
+	void Print() const;
+	void Add(const T& a);
+	void putMinToEnd();
+	void findByKeyAndDelete(T key);
+	void addAllMinMaxSum();
 private:
-    std::unique_ptr<std::vector<T>> elements = std::make_unique<std::vector<T>>(2);
-    int maxSize = 2; // Максимальный размер вектора
-    int currentLength = 0; // Текущая длина вектора
+	std::queue <T> _q;
+	int _len = 0;
 };
 
-template <class T>
-void Vector<T>::append(const T &other)
-{
-    if (currentLength >= maxSize)
-    {
-        auto newElements = std::make_unique<std::vector<T>>(maxSize * 2);
-        std::copy(elements->begin(), elements->begin() + currentLength, newElements->begin());
+#endif
 
-        elements = std::move(newElements);
-        maxSize *= 2;
-    }
-    (*elements)[currentLength] = other;
-    currentLength++;
+template<class T>
+inline void MyQVector<T>::Print() const
+{
+	std::queue <T> tmp_q = _q;
+	for (int i = 0; i < _len;  i++)
+	{
+		std::cout << tmp_q.front() << std::endl;
+		tmp_q.pop();
+	}
 }
 
-template <class T>
-auto Vector<T>::operator*(const T value) const
+template<class T>
+inline void MyQVector<T>::Add(const T& a)
 {
-    auto newVector = std::make_unique<Vector<T>>();
-
-    for (int i = 0; i < currentLength; i++)
-    {
-        newVector->append((*elements)[i] * value);
-    }
-
-    return newVector;
+	_q.push(a);
+	_len++;
 }
 
-template <class T>
-int Vector<T>::currentSize() const
+template<class T>
+inline void MyQVector<T>::putMinToEnd()
 {
-    return currentLength;
+	int index = 0;
+	std::queue<T> tmp_q = _q;
+	T tmp = tmp_q.front(); tmp_q.pop();
+	for (int i = 1; i < _q.size(); i++)
+	{
+		T tmp1 = tmp_q.front(); tmp_q.pop();
+			if (tmp1 < tmp)
+			{
+				index = i;
+				tmp = tmp1;
+			}
+	}
+	auto len = static_cast<int>(_q.size());
+	tmp_q = _q;
+	for (int i = 0; i < len; i++)
+	{
+		_q.pop();
+		if (i != index)
+			_q.push(tmp_q.front());
+		tmp_q.pop();
+	}
+	_q.push(tmp);
 }
 
-template <class T>
-int Vector<T>::getCurrentSize() const
+template<class T>
+inline void MyQVector<T>::findByKeyAndDelete(T key)
 {
-    return currentSize();
+	int index = 0;
+	std::queue<T> tmp_q = _q;
+	for (int i = 0; i < _q.size(); i++)
+	{
+		if (tmp_q.front() == key)
+		{
+			index = i;
+		}
+		tmp_q.pop();
+	}
+	auto len = static_cast<int>(_q.size());
+	tmp_q = _q;
+	for (int i = 0; i < len; i++)
+	{
+		_q.pop();
+		if (i != index)
+		{
+			_q.push(tmp_q.front());
+			tmp_q.pop();
+		}
+	}
+	_len--;
 }
 
-template <class T>
-T Vector<T>::operator[](const int i) const
+template<class T>
+inline void MyQVector<T>::addAllMinMaxSum()
 {
-    return (*elements)[i];
+	std::queue<T> tmp_q = _q;
+	T min = tmp_q.front(); tmp_q.pop();
+	for (int i = 1; i < _q.size(); i++)
+	{
+		T tmp1 = tmp_q.front(); tmp_q.pop();
+		if (tmp1 < min)
+		{
+			min = tmp1;
+		}
+	}
+
+	tmp_q = _q;
+	T max = tmp_q.front(); tmp_q.pop();
+	for (int i = 1; i < _q.size(); i++)
+	{
+		T tmp1 = tmp_q.front(); tmp_q.pop();
+		if (tmp1 > max)
+		{
+			max = tmp1;
+		}
+	}
+
+	T sum = min + max;
+	auto len = static_cast<int>(_q.size());
+	tmp_q = _q;
+	for (int i = 0; i < len; i++)
+	{
+		_q.pop();
+		_q.push(tmp_q.front() + sum);
+		tmp_q.pop();
+	}
+
 }
 
-template <class T>
-void Vector<T>::print() const
+
+template<class T>
+inline MyQVector<T>::MyQVector(int n)
 {
-    std::cout << "{ ";
-    for (int i = 0; i < currentLength; ++i)
-    {
-        std::cout << (*elements)[i] << " ";
-    }
-    std::cout << "}" << std::endl;
-}
-
-template <class T>
-void Vector<T>::addMaxElement()
-{
-    if (currentLength == 0)
-        return;
-
-    T maxElement = *std::max_element(elements->begin(), elements->begin() + currentLength);
-    append(maxElement);
-}
-
-template <class T>
-void Vector<T>::removeElement(const T &key)
-{
-    auto it = std::find(elements->begin(), elements->begin() + currentLength, key);
-    if (it != elements->begin() + currentLength)
-    {
-        std::move(it + 1, elements->begin() + currentLength, it);
-        currentLength--;
-    }
-}
-
-template <class T>
-void Vector<T>::addAverageToAllElements()
-{
-    if (currentLength == 0)
-        return;
-
-    T sum = std::accumulate(elements->begin(), elements->begin() + currentLength, T{});
-    T average = sum / currentLength;
-
-    for (int i = 0; i < currentLength; ++i)
-    {
-        (*elements)[i] += average;
-    }
+	T a;
+	for (int i = 0; i < n; i++)
+	{
+		std::cin >> a;
+		_q.push(a);
+	}
+	_len = _q.size();
 }

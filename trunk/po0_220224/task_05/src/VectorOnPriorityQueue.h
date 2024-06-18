@@ -1,147 +1,120 @@
 #pragma once
-
-#include <iostream>
-#include <queue>
+#ifndef VECTORH
+#define VECTORH
 #include <vector>
-#include <algorithm>
-#include <ranges>
+#include <iostream>
 
-// Параметризированный класс VectorOnPriorityQueue для работы с очередью с приоритетом
-template <typename T>
-class VectorOnPriorityQueue
+template<class T>
+class Vector
 {
 public:
-    VectorOnPriorityQueue() = default;
-    ~VectorOnPriorityQueue() = default;
-
-    T front() const; // Вернуть первый элемент
-    auto operator*(const T value) const; // Оператор умножения всех элементов на значение
-    void show() const; // Показать элементы
-
-    void application(const T &value); // Применить элемент (добавить в очередь)
-
-    void fold(const T &key, int position); // Вставить элемент по ключу на заданную позицию
-    void deleteEl(const T &key); // Удалить элемент по ключу
-    void subMinMax(); // Вычесть разницу между максимальным и минимальным элементами из всех элементов
-    int sizeVec() const; // Вернуть размер вектора
-
+	Vector() = default;
+	explicit Vector(int n);
+	~Vector() = default;
+	void Print() const;
+	void Add(const T& a);
+	void putMinToEnd();
+	void findByKeyAndDelete(T key);
+	void addAllMinMaxSum();
 private:
-    void fromVector(const std::vector<T> &vec); // Инициализировать очередь из вектора
-
-    std::vector<T> toVector() const; // Преобразовать очередь в вектор
-
-    std::priority_queue<T> objects; // Очередь с приоритетом для хранения элементов
+	std::vector <T> _vec;
+	int len = 0;
 };
 
-template <typename T>
-void VectorOnPriorityQueue<T>::application(const T &cost)
+#endif 
+
+template<class T>
+inline Vector<T>::Vector(int n)
 {
-    objects.push(cost);
+	T a;
+	for (int i = 0; i < n; i++)
+	{
+		std::cin >> a;
+		_vec.push_back(a);
+	}
+	len = _vec.size();
 }
 
-template <typename T>
-void VectorOnPriorityQueue<T>::subMinMax()
+template<class T>
+inline void Vector<T>::Print() const
 {
-    if (objects.empty())
-        return;
-
-    std::vector<T> vec = toVector();
-    T min = *std::ranges::min_element(vec);
-    T max = *std::ranges::max_element(vec);
-
-    T diff = max - min;
-
-    for (auto &elem : vec)
-    {
-        elem = elem - diff;
-    }
-
-    fromVector(vec);
+	for (int i = 0; i < _vec.size(); i++)
+	{
+		std::cout << _vec[i] << std::endl;
+	}
 }
 
-template <typename T>
-int VectorOnPriorityQueue<T>::sizeVec() const
+template<class T>
+inline void Vector<T>::Add(const T& a)
 {
-    return objects.size();
+	_vec.push_back(a);
+	len++;
 }
 
-template <typename T>
-auto VectorOnPriorityQueue<T>::operator*(const T cost) const
+template<class T>
+inline void Vector<T>::putMinToEnd()
 {
-    VectorOnPriorityQueue<T> newArr;
+	int index = 0;
+	T tmp = _vec[0];
+	for (int i = 1; i < _vec.size(); i++)
+	{
+		if (_vec[i] < tmp)
+		{
+			index = i;
+			tmp = _vec[i];
+		}
+	}
 
-    for (const auto &elem : toVector())
-    {
-        newArr.application(elem * cost);
-    }
+	_vec.erase(_vec.begin() + index);
 
-    return newArr;
+	_vec.push_back(tmp);
 }
 
-template <typename T>
-void VectorOnPriorityQueue<T>::show() const
+template<class T>
+inline void Vector<T>::findByKeyAndDelete(T key)
 {
-    auto ourvec = toVector();
-
-    std::cout << "{ ";
-    for (const auto &elem : ourvec)
-    {
-        std::cout << elem << " ";
-    }
-    std::cout << "}" << std::endl;
+	int index = 0;
+	for (int i = 0; i < _vec.size(); i++)
+	{
+		if (_vec[i] == key)
+		{
+			index = i;
+			_vec.erase(_vec.begin() + index);
+			break;
+		}
+	}
+	len--;
 }
 
-template <typename T>
-void VectorOnPriorityQueue<T>::fold(const T &key, int position)
+template<class T>
+inline void Vector<T>::addAllMinMaxSum()
 {
-    std::vector<T> ourvec = toVector();
-    auto it = std::ranges::find(ourvec, key);
+	int index = 0;
+	T min = _vec[0];
+	for (int i = 1; i < _vec.size(); i++)
+	{
+		if (_vec[i] < min)
+		{
+			index = i;
+			min = _vec[i];
+		}
+	}
 
-    if (it == ourvec.end())
-        return;
+	int index1 = 0;
+	T max = _vec[0];
+	for (int i = 1; i < _vec.size(); i++)
+	{
+		if (_vec[i] > max)
+		{
+			index1 = i;
+			max = _vec[i];
+		}
+	}
 
-    if (position < 0 || position > static_cast<int>(ourvec.size()))
-        return;
+	T sum = min + max;
 
-    ourvec.insert(ourvec.begin() + position, *it);
-    fromVector(ourvec);
-}
-
-template <typename T>
-void VectorOnPriorityQueue<T>::deleteEl(const T &key)
-{
-    std::vector<T> vec = toVector();
-    std::erase(vec, key); // Use std::erase to remove elements
-    fromVector(vec);
-}
-
-template <typename T>
-std::vector<T> VectorOnPriorityQueue<T>::toVector() const
-{
-    std::vector<T> vect;
-    std::priority_queue<T> temp = objects;
-
-    while (!temp.empty())
-    {
-        vect.push_back(temp.top());
-        temp.pop();
-    }
-
-    std::ranges::reverse(vect);
-    return vect;
-}
-
-template <typename T>
-void VectorOnPriorityQueue<T>::fromVector(const std::vector<T> &vec)
-{
-    std::priority_queue<T> newQue(vec.begin(), vec.end());
-    objects = std::move(newQue);
-}
-
-template <typename T>
-T VectorOnPriorityQueue<T>::front() const
-{
-    if (!objects.empty())
-        return objects.top();
-    return T();
+	for (int i = 0; i < _vec.size(); i++)
+	{
+		_vec[i] = _vec[i] + sum;
+	}
 }

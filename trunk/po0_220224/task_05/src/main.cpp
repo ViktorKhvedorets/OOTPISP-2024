@@ -1,273 +1,267 @@
 #include <iostream>
 #include <vector>
-#include <deque>
-#include <queue>
-#include <algorithm>
-#include <numeric>
-#include <optional>
-#include <stack>
-
 #include "Money.h"
 #include "Vector.h"
+#include <queue>
 #include "VectorOnPriorityQueue.h"
 
-// Вставить максимальный элемент в конец deque
+template<class T>
+void putMinToEnd(std::vector<T> &vec);
+template<class T>
+void findByKeyAndDelete(std::vector<T> &vec, T key);
 template <class T>
-void InsertMaxToEnd(std::deque<T> &deq)
-{
-    auto maximalElement = std::ranges::max_element(deq);
-    deq.push_back(*maximalElement);
-}
+void addAllMinMaxSum(std::vector<T> &vec);
 
-// Удалить элемент по индексу из deque
+template<class T>
+void QputMinToEnd(std::queue<T> &q);
+template<class T>
+void QfindByKeyAndDelete(std::queue<T> &q, T key);
 template <class T>
-void PopIndexFromDeq(std::deque<T> &deq, const T index)
-{
-    if (index < 0 || index >= deq.size()) return;
-    auto element = deq.begin() + index;
-    deq.erase(element);
-}
-
-// Добавить среднее арифметическое ко всем элементам deque
-template <class T>
-void AddAverageToDeque(std::deque<T> &deq)
-{
-    T sum = std::accumulate(deq.begin(), deq.end(), T());
-    T average = sum / static_cast<int>(deq.size());
-    std::ranges::for_each(deq, [average](auto &i)
-    {
-        i = i + average;
-    });
-}
-
-// Вставить максимальный элемент в конец очереди
-template <typename T>
-void addMaxElement(std::queue<T> &q)
-{
-    if (q.empty()) return;
-
-    std::queue<T> tempQueue = q;
-    T maxElement = tempQueue.front();
-    while (!tempQueue.empty())
-    {
-        if (tempQueue.front() > maxElement)
-        {
-            maxElement = tempQueue.front();
-        }
-        tempQueue.pop();
-    }
-    q.push(maxElement);
-}
-
-// Найти элемент с заданным ключом и удалить его из очереди
-template <typename T>
-void removeElement(std::queue<T> &q, const T &key)
-{
-    std::queue<T> tempQueue;
-    while (!q.empty())
-    {
-        if (q.front() != key)
-        {
-            tempQueue.push(q.front());
-        }
-        q.pop();
-    }
-    q = std::move(tempQueue);
-}
-
-// Добавить среднее арифметическое ко всем элементам очереди
-template <typename T>
-void addAverageToAllElements(std::queue<T> &q)
-{
-    if (q.empty()) return;
-
-    std::vector<T> elements;
-    std::queue<T> tempQueue = q;
-    while (!tempQueue.empty())
-    {
-        elements.push_back(tempQueue.front());
-        tempQueue.pop();
-    }
-
-    T sum = std::accumulate(elements.begin(), elements.end(), T{});
-    T average = sum / static_cast<int>(elements.size());
-
-    for (auto &elem : elements)
-    {
-        elem = elem + average;
-    }
-
-    q = std::queue<T>();
-    for (const auto &elem : elements)
-    {
-        q.push(elem);
-    }
-}
-
-// Вставить максимальный элемент в начало стека
-template <typename T>
-void PushMaxToBeginStack(std::stack<T> &stk)
-{
-    if (stk.empty()) return;
-
-    std::stack<T> tempStack = stk;
-    T maxElement = tempStack.top();
-    while (!tempStack.empty())
-    {
-        if (tempStack.top() > maxElement)
-        {
-            maxElement = tempStack.top();
-        }
-        tempStack.pop();
-    }
-
-    std::stack<T> newStack;
-    newStack.push(maxElement);
-    while (!stk.empty())
-    {
-        newStack.push(stk.top());
-        stk.pop();
-    }
-    stk = std::move(newStack);
-}
-
-// Удалить минимальный элемент из стека
-template <typename T>
-void DeleteMinStack(std::stack<T> &stk)
-{
-    if (stk.empty()) return;
-
-    std::stack<T> tempStack = stk;
-    T minElement = tempStack.top();
-    while (!tempStack.empty())
-    {
-        if (tempStack.top() < minElement)
-        {
-            minElement = tempStack.top();
-        }
-        tempStack.pop();
-    }
-
-    std::stack<T> newStack;
-    while (!stk.empty())
-    {
-        if (stk.top() != minElement)
-        {
-            newStack.push(stk.top());
-        }
-        stk.pop();
-    }
-
-    while (!newStack.empty())
-    {
-        stk.push(newStack.top());
-        newStack.pop();
-    }
-}
-
-// Добавить среднее арифметическое ко всем элементам стека
-template <typename T>
-void AddAverageValueToStack(std::stack<T> &stk)
-{
-    if (stk.empty()) return;
-
-    std::stack<T> tempStack = stk;
-    std::vector<T> elements;
-    while (!tempStack.empty())
-    {
-        elements.push_back(tempStack.top());
-        tempStack.pop();
-    }
-
-    T sum = std::accumulate(elements.begin(), elements.end(), T{});
-    T average = sum / static_cast<int>(elements.size());
-
-    for (auto &elem : elements)
-    {
-        elem = elem + average;
-    }
-
-    std::stack<T> newStack;
-    for (auto it = elements.rbegin(); it != elements.rend(); ++it)
-    {
-        newStack.push(*it);
-    }
-    stk = std::move(newStack);
-}
+void QaddAllMinMaxSum(std::queue<T> &q);
 
 int main()
 {
-    // TASK 1 //
+	std::cout << "Task1" << std::endl;
+	
+	std::vector<float> vec;
+	vec.push_back(float(1.50));
+	vec.push_back(float(2.50));
+	vec.push_back(float(1.30));
+	vec.push_back(float(5.50));
+	
+	putMinToEnd(vec);
+	findByKeyAndDelete(vec, float(1.50));
+	addAllMinMaxSum(vec);
+	for(auto elt : vec)
+	{
+		std::cout << elt << std::endl;
+	}
+	
 
-    std::deque<int> doubleDeque = {1, 2, 4, 3};
 
-    InsertMaxToEnd(doubleDeque);
-    PopIndexFromDeq(doubleDeque, 2);
-    AddAverageToDeque(doubleDeque);
+	std::cout << "Task2" << std::endl;
+	
+	std::vector<Money> moneybagVec;
+	moneybagVec.push_back(Money(1.50));
+	moneybagVec.push_back(Money(1.20));
+	moneybagVec.push_back(Money(1.10));
+	moneybagVec.push_back(Money(2.50));
+	moneybagVec.push_back(Money(2.00));
 
-    for (const auto &i : doubleDeque)
-    {
-        std::cout << i << " ";
-    }
+	putMinToEnd(moneybagVec);
+	findByKeyAndDelete(moneybagVec, Money(1.50));
+	addAllMinMaxSum(moneybagVec);
+	for (auto elt1 : moneybagVec)
+	{
+		std::cout << elt1 << std::endl;
+	}
 
-    std::cout << std::endl;
 
-    // TASK 2 //
+	std::cout << "Task3" << std::endl;
 
-    std::vector<Money> moneybagVec;
-    moneybagVec.push_back(Money(1.50));
-    moneybagVec.push_back(Money(1.20));
-    moneybagVec.push_back(Money(1.10));
-    moneybagVec.push_back(Money(2.50));
-    moneybagVec.push_back(Money(2.00));
+	Vector<Money> my_moneybagVec;   
+	my_moneybagVec.Add(Money(1.50));
+	my_moneybagVec.Add(Money(1.20));
+	my_moneybagVec.Add(Money(1.30));
+	my_moneybagVec.Add(Money(1.10));
+	my_moneybagVec.Add(Money(2.50));
 
-    VectorOnPriorityQueue<Money> vectorOnPQ;
-    for (const auto &m : moneybagVec)
-    {
-        vectorOnPQ.application(m);
-    }
+	my_moneybagVec.putMinToEnd();
+	my_moneybagVec.findByKeyAndDelete(Money(1.20));
+	my_moneybagVec.addAllMinMaxSum();
+	my_moneybagVec.Print();
 
-    vectorOnPQ.show();
-    vectorOnPQ.fold(Money(1.50), 2);
-    vectorOnPQ.deleteEl(Money(1.20));
-    vectorOnPQ.subMinMax();
-    vectorOnPQ.show();
 
-    // TASK 3 //
 
-    Vector<int> vectorOfInts;
-    vectorOfInts.append(1);
-    vectorOfInts.append(1);
-    vectorOfInts.append(2);
-    vectorOfInts.append(0);
-    vectorOfInts.append(5);
+	std::cout << "Task4" << std::endl;
 
-    vectorOfInts.addMaxElement();
-    vectorOfInts.removeElement(1);
-    vectorOfInts.addAverageToAllElements();
+	std::queue<Money> q;
+	q.push(Money(1.50));
+	q.push(Money(1.20));
+	q.push(Money(1.10));
+	q.push(Money(2.50));
+	q.push(Money(2.00));
 
-    vectorOfInts.print();
+	QputMinToEnd(q);
+	QfindByKeyAndDelete(q, Money(1.50));
+	QaddAllMinMaxSum(q);
 
-    // TASK 4 //
+	std::queue<Money> tmp_q = q;
+	for (int i = 0; i < q.size(); i++)
+	{
+		std::cout << tmp_q.front() << std::endl;
+		tmp_q.pop();
+	}
 
-    std::stack<Money> somePieceOfStack;
 
-    somePieceOfStack.push(Money(1.66));
-    somePieceOfStack.push(Money(4.51));
-    somePieceOfStack.push(Money(0.4));
-    somePieceOfStack.push(Money(6.53));
+	std::cout << "Task5" << std::endl;
 
-    PushMaxToBeginStack(somePieceOfStack);
-    DeleteMinStack(somePieceOfStack);
-    AddAverageValueToStack(somePieceOfStack);
+	MyQVector<Money> qvec;
+	qvec.Add(Money(1.50));
+	qvec.Add(Money(1.20));
+	qvec.Add(Money(1.30));
+	qvec.Add(Money(1.10));
+	qvec.Add(Money(2.50));
 
-    while (!somePieceOfStack.empty())
-    {
-        std::cout << somePieceOfStack.top() << " ";
-        somePieceOfStack.pop();
-    }
+	qvec.putMinToEnd();
+	qvec.findByKeyAndDelete(Money(1.50));
+	qvec.addAllMinMaxSum();
+	qvec.Print();
 
-    std::cout << std::endl;
 
-    return 0;
+}
+
+template <class T>
+void putMinToEnd(std::vector<T> &vec)
+{
+	int index = 0;
+	T tmp = vec[0];
+	for (int i = 1; i < vec.size(); i++)
+	{
+		if (vec[i] < tmp)
+		{
+			index = i;
+			tmp = vec[i];
+		}
+	}
+
+	vec.erase(vec.begin()+index);
+
+	vec.push_back(tmp);
+}
+
+template <class T>
+void findByKeyAndDelete(std::vector<T> &vec, T key)
+{
+	for (int i = 0; i < vec.size(); i++)
+	{
+		if (vec[i] == key)
+		{
+			vec.erase(vec.begin()+i);
+			break;
+		}
+	}
+
+}
+
+template <class T>
+void addAllMinMaxSum(std::vector<T> &vec)
+{
+	T min = vec[0];
+	for (int i = 1; i < vec.size(); i++)
+	{
+		if (vec[i] < min)
+		{
+			min = vec[i];
+		}
+	}
+
+	T max = vec[0];
+	for (int i = 1; i < vec.size(); i++)
+	{
+		if (vec[i] > max)
+		{
+			max = vec[i];
+		}
+	}
+
+	T sum = min + max;
+	auto len = static_cast<int>(vec.size());
+
+	for (int i = 0; i < len; i++)
+	{
+		vec[i] = vec[i]+sum;
+	}
+}
+
+template<class T>
+void QputMinToEnd(std::queue<T> &q)
+{
+	int index = 0;
+	std::queue<T> tmp_q = q;
+	T tmp = tmp_q.front(); tmp_q.pop();
+	for (int i = 1; i < q.size(); i++)
+	{
+		T tmp1 = tmp_q.front(); tmp_q.pop();
+		if (tmp1 < tmp)
+		{
+			index = i;
+			tmp = tmp1;
+		}
+	}
+	auto len = static_cast<int>(q.size());
+	tmp_q = q;
+	for (int i = 0; i < len; i++)
+	{
+		q.pop();
+		if (i != index)
+		{
+			q.push(tmp_q.front());
+		}
+		tmp_q.pop();
+	}
+	q.push(tmp);
+}
+
+template<class T>
+void QfindByKeyAndDelete(std::queue<T> &q, T key)
+{
+	int index = 0;
+	std::queue<T> tmp_q = q;
+	for (int i = 0; i < q.size(); i++)
+	{
+		if (tmp_q.front() == key)
+		{
+			index = i;
+		}
+		tmp_q.pop();
+	}
+	auto len = static_cast<int>(q.size());
+	tmp_q = q;
+	for (int i = 0; i < len; i++)
+	{
+		q.pop();
+		if (i != index)
+		{
+			q.push(tmp_q.front());
+			tmp_q.pop();
+		}
+	}
+}
+
+template<class T>
+void QaddAllMinMaxSum(std::queue<T> &q)
+{
+	std::queue<T> tmp_q = q;
+	T min = tmp_q.front(); tmp_q.pop();
+	for (int i = 1; i < q.size(); i++)
+	{
+		T tmp1 = tmp_q.front(); tmp_q.pop();
+			if (tmp1 < min)
+			{
+				min = tmp1;
+			}
+	}
+
+	tmp_q = q;
+	T max = tmp_q.front(); tmp_q.pop();
+	for (int i = 1; i < q.size(); i++)
+	{
+		T tmp1 = tmp_q.front(); tmp_q.pop();
+			if (tmp1 > max)
+			{
+				max = tmp1;
+			}
+	}
+
+	T sum = min + max;
+	auto len = static_cast<int>(q.size());
+	tmp_q = q;
+	for (int i = 0; i < len; i++)
+	{
+		q.pop();
+		q.push(tmp_q.front()+sum);
+		tmp_q.pop();
+	}
+
 }
