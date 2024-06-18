@@ -26,7 +26,28 @@ Money Money::operator+(const Money& other) const
 
     return sum;
 }
-
+Money Money::operator-(const Money& a) const
+{
+    auto diff = std::make_unique<Money>();
+    long RDiff = this->GetR() - a.GetR();
+    int KDiff = this->GetK() - a.GetK();
+    if (KDiff < 0)
+    {
+        RDiff--;
+        KDiff += 100;
+    }
+    diff->SetK(KDiff);
+    diff->SetR(RDiff);
+    return *diff.get();
+}
+Money Money::operator/(const int a) const
+{
+    long totalKopecks = rubles * 100 + kopeck;
+    totalKopecks /= a;
+    long newRubles = totalKopecks / 100;
+    int newKopecks = totalKopecks % 100;
+    return Money(newRubles + newKopecks / 100.0);
+}
 
 // Оператор сравнения на равенство двух объектов Money
 bool Money::operator==(const Money& other) const
