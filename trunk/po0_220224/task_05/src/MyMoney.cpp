@@ -15,24 +15,20 @@ Money::Money(double amount)
 
 
 // Оператор сложения двух объектов Money
-Money operator+(const Money& other) const
+Money operator+(const Money& a, const Money& b)
 {
     Money sum;
-    sum.rubles = rubles + other.rubles;
-    sum.kopeck = kopeck + other.kopeck;
-
-    // Нормализуем результат
+    sum.rubles = a.rubles + b.rubles;
+    sum.kopeck = a.kopeck + b.kopeck;
     sum.normalize();
-
     return sum;
 }
-Money operator-(const Money& a) const
+Money operator-(const Money& a, const Money& b)
 {
     auto diff = std::make_unique<Money>();
-    long RDiff = this->GetR() - a.GetR();
-    int KDiff = this->GetK() - a.GetK();
-    if (KDiff < 0)
-    {
+    long RDiff = a.GetR() - b.GetR();
+    int KDiff = a.GetK() - b.GetK();
+    if (KDiff < 0) {
         RDiff--;
         KDiff += 100;
     }
@@ -40,10 +36,10 @@ Money operator-(const Money& a) const
     diff->SetR(RDiff);
     return *diff.get();
 }
-Money operator/(const int a) const
+Money operator/(const Money& a, int b)
 {
-    double totalKopecks = rubles * 100 + kopeck;
-    totalKopecks /= a;
+    double totalKopecks = a.rubles * 100 + a.kopeck;
+    totalKopecks /= b;
     long newRubles = static_cast<long>(totalKopecks / 100);
     int newKopecks = static_cast<int>(std::fmod(totalKopecks, 100));
     return Money(newRubles + newKopecks / 100.0);
