@@ -11,9 +11,6 @@ Money::Money(double amount)
     normalize();
 }
 
-
-
-
 // Оператор сложения двух объектов Money
 Money operator+(const Money& a, const Money& b)
 {
@@ -23,6 +20,7 @@ Money operator+(const Money& a, const Money& b)
     sum.normalize();
     return sum;
 }
+
 Money operator-(const Money& a, const Money& b)
 {
     auto diff = std::make_unique<Money>();
@@ -36,35 +34,32 @@ Money operator-(const Money& a, const Money& b)
     diff->SetR(RDiff);
     return *diff.get();
 }
+
 Money operator/(const Money& a, int b)
 {
-    double totalKopecks = static_cast<double>(a.rubles) * 100.0 + static_cast<double>(a.kopeck);
+    double totalKopecks = static_cast<double>(a.GetR()) * 100.0 + a.GetK();
     totalKopecks /= b;
-    auto newRubles = static_cast<double>(totalKopecks / 100.0);
-    auto newKopecks = static_cast<int>(std::fmod(totalKopecks, 100.0));
-    return Money(newRubles + newKopecks / 100.0);
+    long newRubles = totalKopecks / 100;
+    int newKopecks = totalKopecks % 100;
+    return Money(newRubles, newKopecks);
 }
-
 
 // Оператор сравнения на равенство двух объектов Money
 bool Money::operator==(const Money& other) const = default;
 
-
 // Дружественный оператор вывода объекта Money
-std::ostream& operator<<(std::ostream& out)
-
+std::ostream& operator<<(std::ostream& out, const Money& a)
 {
-   std::cout<< "hello world";
-   return out;
+    out << a.rubles << ',' << std::setw(2) << std::setfill('0') << a.kopeck;
+    return out;
 }
 
 std::istream& operator>>(std::istream& in, Money& a)
 {
-    std::cout << "Enter amount of rubles" << std::endl;
+    std::cout << "Enter amount of rubles: ";
     in >> a.rubles;
-    std::cout << "Enter amount of kopeck" << std::endl;
+    std::cout << "Enter amount of kopeck: ";
     in >> a.kopeck;
     a.normalize();
     return in;
 }
-

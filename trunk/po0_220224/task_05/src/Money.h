@@ -19,7 +19,7 @@ public:
     friend Money operator-(const Money& a, const Money& b);
     friend Money operator/(const Money& a, int b);
     
-    friend std::ostream& operator<<(std::ostream& out);
+    friend std::ostream& operator<<(std::ostream& out, const Money& a);
     friend std::istream& operator>>(std::istream& in, Money& a);
 
     inline int GetK() const { return kopeck; }
