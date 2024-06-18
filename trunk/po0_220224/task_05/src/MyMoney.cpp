@@ -45,7 +45,7 @@ Money Money::operator/(const int a) const
     double totalKopecks = rubles * 100 + kopeck;
     totalKopecks /= a;
     double newRubles = totalKopecks / 100;
-    int newKopecks = totalKopecks % 100;
+    int newKopecks = totalKopecks % 100.0;
     return Money(newRubles + newKopecks / 100.0);
 }
 
