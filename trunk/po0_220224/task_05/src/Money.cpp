@@ -1,20 +1,6 @@
 #include "Money.h"
 #include <memory>
 
-Money::Money(const double a)
-
-	:rubles(static_cast<long>(a)),
-	kopeck(static_cast<int>((a - static_cast<int>(a)) * 100))
-{
-}
-
-bool Money::operator==(const Money& a) const
-{
-	if (kopeck == a.kopeck && rubles == a.rubles)
-		return true;
-	else
-		return false;
-}
 
 
 Money Money::operator+(const Money& a) const
@@ -32,4 +18,18 @@ Money Money::operator+(const Money& a) const
 
 	return *sum.get();
 
+}
+bool Money::operator==(const Money& a) const
+{
+	if (kopeck == a.kopeck && rubles == a.rubles)
+		return true;
+	else
+		return false;
+}
+
+Money::Money(const double a)
+
+	:rubles(static_cast<long>(a)),
+	kopeck(static_cast<int>((a - static_cast<int>(a)) * 100))
+{
 }
