@@ -43,6 +43,6 @@ private:
     int kopeck = 0;
 };
 
-Coins::Coins(long r, int k) : rubles(r), kopeck(k) {}
+
 
 #endif
