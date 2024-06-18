@@ -43,6 +43,28 @@ private:
             kopeck = 100 + kopeck % 100;
         }
     }
+    Money operator-(const Money& a, const Money& b)
+{
+    Money result;
+    result.rubles = a.rubles - b.rubles;
+    result.kopeck = a.kopeck - b.kopeck;
+    if (result.kopeck < 0)
+    {
+        result.rubles -= 1;
+        result.kopeck += 100;
+    }
+    return result;
+}
+
+Money operator/(const Money& a, int b)
+{
+    Money result;
+    double totalKopeck = a.rubles * 100 + a.kopeck;
+    double dividedKopeck = totalKopeck / b;
+    result.rubles = static_cast<long>(dividedKopeck / 100);
+    result.kopeck = static_cast<int>(dividedKopeck) % 100;
+    return result;
+}
 };
 
 #endif
